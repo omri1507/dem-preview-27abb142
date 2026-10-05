@@ -149,13 +149,15 @@ a{ color:inherit; }
    to each other. */
 .hero-btn{ padding:18px 28px; min-width:230px; gap:11px; }
 .hero-btn .btn__chev{ width:43.7px; height:33.7px; }
-.hero-btn .btn__label{ height:50px; }
+.hero-btn .btn__label{ height:44.9px; }   /* 'התנדבו' at the same type size
+                                            the old 'להרשמה' had (50px for its
+                                            39px export; this one is 35px) */
 
 .hero-cta__stack{ display:flex; flex-direction:column; align-items:flex-end; width:541px; }
 .hero-title{ width:541px; height:204px; margin-bottom:-1px; }
 .hero-title img{ width:540px; height:163px; }
-.hero-sub{ width:454px; height:86px; }
-.hero-sub img{ width:440px; height:57px; }
+.hero-sub{ width:407px; height:86px; }
+.hero-sub img{ width:393px; height:57px; }
 
 /* "רגע לפני הקלפי" badge — Figma 131:48, left of the rotating portrait.
    Coordinates are the export's own box (224×219 at 40,80 on the page),
@@ -799,14 +801,14 @@ a{ color:inherit; }
   .hero-sub{ height:auto; transform:none; }
   .hero-title{ width:100%; padding:13px 14px; margin-bottom:0; }
   .hero-title img{ width:100%; height:auto; }
-  .hero-sub{ width:87%; padding:10px 14px; }
+  .hero-sub{ width:78%; padding:10px 14px; }   /* shorter line since 'בואו לדוכני…' */
   .hero-sub img{ width:100%; height:auto; }
   .hero-btn{
     align-self:flex-end; transform:none;
     padding:15px 23px; gap:9px;
   }
   .hero-btn .btn__chev{ width:33px; }
-  .hero-btn .btn__label{ height:38px; }
+  .hero-btn .btn__label{ height:34px; }
 
   /* buttons: trimmed so the longest label ("בואו להשפיע") clears the page
      edges inside the shrunk columns */
