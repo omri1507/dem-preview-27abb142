@@ -271,24 +271,41 @@ a{ color:inherit; }
 }
 .duknow__fact img{ width:414px; height:157px; }
 
-/* Figma places both photos as plain rects: the volunteer's 409×544 matches
-   youngman.webp's aspect exactly, so it fills its box with no letterboxing. */
-.mid-youngman{
-  position:absolute; left:705px; top:72px;
-  width:409px; height:544px;
-  object-fit:contain; object-position:top center;
-  z-index:2;
+/* Two booth snapshots (Figma 131:64), white-bordered prints with a small
+   hard shadow, tilted +2.72° / −5.41°; the second overlaps the first.
+   Boxes are Figma's un-rotated rects (363.9×249 / 362.4×248) at their
+   solved centres. The photos are pre-cropped to Figma's framing.
+   Effect: each print drops in onto the table (scaled up, over-rotated, then
+   settles with a little bounce) as the section scrolls in, the parallax
+   moves them at different depths, and hovering one straightens it and
+   lifts it toward the viewer. */
+.mid-photos{ position:absolute; inset:0; pointer-events:none; }
+.mid-photo{ position:absolute; pointer-events:auto; }
+.mid-photo--a{ left:837.7px; top:86.5px; width:363.87px; height:249.041px; z-index:2; --r:2.72deg; --r0:-6deg; }
+.mid-photo--b{ left:1005.55px; top:211.48px; width:362.428px; height:248.054px; z-index:3; --r:-5.41deg; --r0:7deg; }
+.mid-photo__img{
+  display:block; width:100%; height:100%; object-fit:cover;
+  border:5px solid var(--white);
+  box-shadow:-3px 3px 0 0 rgba(22,32,63,.19);
+  transform:rotate(var(--r));
+  transition:transform .35s cubic-bezier(.2,1.2,.4,1), box-shadow .35s ease;
 }
-/* box sized to booth.webp's own 820:1580 aspect, so `contain` fills it exactly
-   and left/top/width/height ARE the painted rect — no letterbox offset to
-   reason about (the previous 364-wide box padded it ~63px and pushed the booth
-   right of where the design puts it). */
-.mid-booth{
-  position:absolute; left:1080px; top:80px;
-  width:240px; height:462px;
-  transform:rotate(2.41deg); z-index:1;
+/* the drop: rides the page's .reveal (opacity + slide), adding the
+   scale/over-rotation, which settles with an overshoot */
+.js .mid-photo__img.reveal{ transform:rotate(var(--r0)) scale(1.18); }
+.js .mid-photo__img.reveal.in{
+  transform:rotate(var(--r));
+  transition:opacity .5s ease, translate .6s ease,
+             transform .9s cubic-bezier(.2,1.45,.45,1), box-shadow .35s ease;
 }
-.mid-booth img{ width:100%; height:100%; object-fit:contain; }
+.js .mid-photo__img.reveal.in.d2{ transition-delay:.18s, .18s, .18s, 0s; }
+.mid-photo:hover{ z-index:5; }
+.js .mid-photo:hover .mid-photo__img.in,
+.mid-photo:hover .mid-photo__img{
+  transform:rotate(0deg) scale(1.06);
+  box-shadow:-10px 12px 0 0 rgba(22,32,63,.22);
+  transition:transform .35s cubic-bezier(.2,1.2,.4,1), box-shadow .35s ease;
+}
 
 /* =====================================================================
    NAVY BAND (angled slab behind the counter + form)
@@ -840,24 +857,16 @@ a{ color:inherit; }
   .band--blue > .inner{
     display:flex; flex-direction:column; align-items:center; gap:24px;
   }
-  .mid-booth{ display:none; }
-  /* Below the text block, and cropped by the NAVY rather than by CSS — same as
-     desktop, where the slab cuts his legs. A CSS crop left a hard horizontal
-     edge sitting in the middle of the blue; running him under the section edge
-     hides it.
-     He keeps his natural aspect and overflows the band's content box by the
-     margin below, so the visible height is (reserved height + padding-bottom -
-     the wedge's 26px reach) — i.e. ~240px, with the rest tucked under the navy.
-     He passes behind the "עד כה נרשמו" tag on the way down, exactly as the
-     tag and progress box overlap him on desktop. */
-  .mid-youngman{
-    position:static; order:2;
-    /* clamped, not a plain %, because the tag that crosses him doesn't shrink
-       with the column: at a straight 62% he lost ~50px of height on a 320px
-       screen and the tag swallowed the ballot */
-    width:clamp(200px, 66%, 225px); height:auto;
-    margin:0 -6px -98px 0;
+  /* the two prints overlap below the text block, staggered like desktop:
+     first one up-left, second down-right on top of it */
+  .mid-photos{
+    position:relative; inset:auto; order:2; pointer-events:auto;
+    width:100%; height:auto; aspect-ratio:342 / 268; margin:4px 0 -30px;
   }
+  .mid-photo{ translate:0 0 !important; }
+  .mid-photo--a{ left:2%; top:0; width:68%; height:auto; aspect-ratio:363.87 / 249.041; }
+  .mid-photo--b{ left:auto; right:2%; top:auto; bottom:0; width:68%; height:auto; aspect-ratio:362.428 / 248.054; }
+  .mid-photo__img{ border-width:4px; }
 
   /* shear the pair as ONE unit (as on desktop), not box-by-box — sheared
      together the fact box and button stagger and read as one sheared block.
