@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- base:start — tools/package.sh swaps this block for a literal <base> -->
+<script>
+  /* Production is served by Lovable at ".../newform", and Lovable strips the
+     trailing slash — so every relative path here (css/, js/, assets/) would
+     resolve one folder too high. Pin the base to this page's own folder before
+     anything loads. This is the folder's index, so a last segment without an
+     extension (or "index") IS the folder. Must stay above every other URL. */
+  (function () {
+    var p = location.pathname, last = p.split('/').pop();
+    var dir = p.slice(-1) === '/' ? p
+      : (last === 'index' || /\.html?$/i.test(last)) ? p.slice(0, p.length - last.length)
+      : p + '/';
+    var b = document.createElement('base'); b.href = dir; document.head.appendChild(b);
+  })();
+</script>
+<!-- base:end -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the Lovable site's own favicon (root of electionday.democrats.org.il) -->
+<link rel="icon" type="image/png" href="/favicon.png">
+<title>הדמוקרטים צריכים אתכם! · התנדבו איתנו ביום הבחירות</title>
+<meta name="description" content="הדמוקרטים בראשות יאיר גולן — התנדבו איתנו ביום הבחירות. מביאים כל קול.">
+
+<!-- Social share preview. og:image and og:url must be ABSOLUTE, so they name
+     the production address even on the staging copy. Image: tools/og.html -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="הדמוקרטים בראשות יאיר גולן">
+<meta property="og:title" content="הדמוקרטים צריכים אתכם! · התנדבו איתנו ביום הבחירות">
+<meta property="og:description" content="הדמוקרטים בראשות יאיר גולן — התנדבו איתנו ביום הבחירות. מביאים כל קול.">
+<meta property="og:url" content="https://electionday.democrats.org.il/newform">
+<meta property="og:image" content="https://electionday.democrats.org.il/newform/assets/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1440">
+<meta property="og:image:height" content="804">
+<meta property="og:image:alt" content="יאיר גולן לצד הכותרת: הדמוקרטים צריכים אתכם!">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Production is the real page; the GitHub staging copy defers to it. -->
+<link rel="canonical" href="https://electionday.democrats.org.il/newform">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+<div id="root">
+
+  <!-- ============================ HERO ============================ -->
+  <section class="band band--hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="inner">
+      <!-- Cross-fades through the five in order. Only the first is eager —
+           the rest are small enough (~350KB for all five) to arrive well
+           before their turn, which is 4s away. NOTE: alt text below carries
+           first names only; fill in the surnames. -->
+      <div class="hero-people">
+        <img class="hero-person is-on" src="assets/img/persons/yair.webp"  alt="יאיר גולן" fetchpriority="high">
+        <img class="hero-person"       src="assets/img/persons/naama.webp" alt="נעמה">
+        <img class="hero-person"       src="assets/img/persons/gilad.webp" alt="גלעד">
+        <img class="hero-person"       src="assets/img/persons/efrat.webp" alt="אפרת">
+        <img class="hero-person"       src="assets/img/persons/yaya.webp"  alt="יאיא">
+        <!-- Positioned against the portrait box so the mobile layout can keep
+             them in the same relation to the face. The badge is one Figma
+             export (circle, band, shadow and text), already rotated. -->
+        <img class="hero-badge" src="assets/svg/badge.svg" alt="רגע לפני הקלפי: הזדמנות אחרונה לשכנע!">
+        <img class="note note--hero" src="assets/img/note.webp" alt="" aria-hidden="true">
+      </div>
+      <img class="hero-logo" src="assets/svg/logo.svg" alt="הדמוקרטים בראשות יאיר גולן">
+
+      <!-- one shared shear on the column, so the stack and the button sit on
+           the same plane (shearing them separately misaligns the button) -->
+      <div class="hero-cta skew">
+        <div class="hero-cta__stack">
+          <div class="box box--lightblue hero-title">
+            <img src="assets/svg/hero-title.svg" alt="הדמוקרטים צריכים אתכם!">
+          </div>
+          <div class="box box--white hero-sub">
+            <img src="assets/svg/hero-sub.svg" alt="התנדבו לדוכני יום הבחירות">
+          </div>
+        </div>
+        <a href="#join" class="btn btn--red hero-btn">
+          <img class="btn__chev" src="assets/svg/chevron.svg" alt="">
+          <img class="btn__label" src="assets/svg/hero-btn.svg" alt="להרשמה">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ MARQUEE ============================ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__bar">
+      <!-- the two accent lines hang outside the bar, so they sit beside the
+           clipped track rather than inside it -->
+      <span class="marquee__stripe marquee__stripe--a"></span>
+      <span class="marquee__stripe marquee__stripe--b"></span>
+      <div class="marquee__clip">
+        <div class="marquee__track">
+          <div class="marquee__seq"></div>
+          <div class="marquee__seq"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================= LIGHT-BLUE SECTION ======================= -->
+  <div class="blue-bg" aria-hidden="true"></div>
+  <section class="band band--blue">
+    <div class="inner">
+
+      <img class="mid-youngman parallax" data-depth="0.045" src="assets/img/youngman.webp" alt="דמוקרט מתנדב מחזיק פתק אמת">
+      <div class="mid-booth parallax" data-depth="0.09">
+        <img src="assets/img/booth.webp" alt="דוכן הדמוקרטים">
+      </div>
+
+      <div class="duknow skew parallax" data-depth="-0.03">
+        <div class="box box--white duknow__fact reveal">
+          <img src="assets/svg/fact.svg" alt="6 מנדטים מחליטים למי להצביע מול הקלפי עצמה">
+        </div>
+        <a href="#join" class="btn btn--red duknow__cta">
+          <img class="btn__chev" src="assets/svg/chevron.svg" alt="">
+          <img class="btn__label" src="assets/svg/boau.svg" alt="בואו להשפיע">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ NAVY BAND ============================ -->
+  <div class="navy" aria-hidden="true">
+    <div class="navy__slab"></div>
+    <span class="navy__stripe navy__stripe--a"></span>
+    <span class="navy__stripe navy__stripe--b"></span>
+  </div>
+
+  <section class="band band--navy">
+    <div class="inner">
+
+      <!-- progress towards the volunteer target.
+           ONE number drives everything: data-pct on .count sets the inline
+           --pct (so the bar is already the right width with JS off) and is
+           the value the bar counts up to. Change it here, or at runtime with
+           window.setProgress(n). -->
+      <div class="count skew" data-pct="45" style="--pct:45">
+        <div class="box box--navy count__tag">
+          <img src="assets/svg/adkan.svg" alt="עד כה נרשמו">
+        </div>
+        <div class="box box--white count__num">
+          <div class="bar" role="progressbar"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="45"
+               aria-label="אחוז מהמתנדבות והמתנדבים הנדרשים שנרשמו">
+            <span class="bar__fill"></span>
+            <!-- Live text: js/main.js swaps this for an inline <svg> composed
+                 from the Mandatory outlines in assets/js/mandatory-digits.js,
+                 so the percentage can animate in the real face. -->
+            <span class="bar__pct" aria-hidden="true">45%</span>
+          </div>
+          <img class="count__note" src="assets/svg/nidrashim.svg"
+               alt="מכוח ההתנדבות הנדרש">
+        </div>
+      </div>
+
+      <!-- ===================== registration flow =====================
+           Multi-step, driven by js/join.js (shared with join.html — same
+           markup hooks, different skin). The old single-screen form is now
+           step 1 of it. -->
+      <form id="join" class="form reveal" data-flow-scroll novalidate>
+        <div class="box box--lightblue form__head skew">
+          <img src="assets/svg/hitstarfu.svg" alt="הצטרפו עכשיו:">
+        </div>
+
+        <div class="progress">
+          <span class="progress__label" aria-live="polite">שלב 1 מתוך 5</span>
+          <span class="progress__track"><span class="progress__fill" style="--p:20%"></span></span>
+        </div>
+
+        <!-- ---------- 1 · פרטים ---------- -->
+        <section class="step" data-step="details">
+          <div class="form__row">
+            <label class="field skew">
+              <span class="field__label">שם פרטי</span>
+              <input type="text" name="firstName" autocomplete="given-name">
+            </label>
+            <label class="field skew">
+              <span class="field__label">שם משפחה</span>
+              <input type="text" name="lastName" autocomplete="family-name">
+            </label>
+            <label class="field skew">
+              <span class="field__label">טלפון</span>
+              <input type="tel" name="phone" inputmode="numeric" autocomplete="tel">
+            </label>
+          </div>
+
+          <div class="form__row form__row--2">
+            <label class="field skew">
+              <span class="field__label">אימייל</span>
+              <input type="email" name="email" autocomplete="email">
+            </label>
+            <div class="field combo skew" data-combo="city">
+              <label class="field__label" for="city-input">עיר מגורים</label>
+              <input type="text" id="city-input" name="city" role="combobox"
+                     autocomplete="off" aria-expanded="false" aria-controls="city-list"
+                     aria-autocomplete="list">
+              <ul id="city-list" class="combo__list" role="listbox" hidden></ul>
+            </div>
+          </div>
+
+          <div class="form__consent skew">
+            <span class="checkbox" role="checkbox" aria-checked="false" tabindex="0"></span>
+            <span class="form__consent-text">אני מאשר/ת את
+              <a href="https://democrats.org.il/privacy-policy/" target="_blank" rel="noopener">תנאי השימוש ומדיניות הפרטיות</a><b>*</b>
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn--red form__submit skew">
+            <img class="btn__chev" src="assets/svg/chevron.svg" alt="">
+            <img class="btn__label" src="assets/svg/btn-continue.svg" alt="המשך">
+          </button>
+        </section>
+
+        <!-- ---------- 2 · אימות ---------- -->
+        <section class="step" data-step="otp" hidden>
+          <p class="step__lede">שלחנו קוד בן 6 ספרות ל־<b data-echo="phone"></b></p>
+
+          <label class="field field--otp skew">
+            <span class="field__label">קוד אימות</span>
+            <input type="text" name="otp" inputmode="numeric" autocomplete="one-time-code"
+                   maxlength="6" class="otp-input">
+          </label>
+
+          <div class="step__row">
+            <button type="button" class="linkbtn" data-act="resend">שליחה חוזרת</button>
+            <button type="button" class="linkbtn" data-act="back-details">שינוי מספר</button>
+          </div>
+
+          <button type="submit" class="btn btn--red form__submit skew">
+            <img class="btn__chev" src="assets/svg/chevron.svg" alt="">
+            <img class="btn__label" src="assets/svg/btn-verify.svg" alt="אימות">
+          </button>
+        </section>
+
+        <!-- ---------- 3 · כתובת ומשמרות ---------- -->
+        <section class="step" data-step="address" hidden>
+          <p class="step__lede">כדי למצוא את הקלפיות הקרובות אליכם</p>
+
+          <div class="form__row form__row--2">
+            <div class="field combo skew" data-combo="street">
+              <label class="field__label" for="street-input">רחוב</label>
+              <input type="text" id="street-input" name="street" role="combobox"
+                     autocomplete="off" aria-expanded="false" aria-controls="street-list"
+                     aria-autocomplete="list">
+              <ul id="street-list" class="combo__list" role="listbox" hidden></ul>
+              <span class="field__hint" data-street-hint></span>
+            </div>
+            <label class="field field--house skew">
+              <span class="field__label">מספר בית</span>
+              <input type="text" name="houseNumber" inputmode="numeric">
+            </label>
+          </div>
+
+          <div class="form__row form__row--id">
+            <label class="field field--id skew">
+              <span class="field__label">ת.ז <span class="field__optional">(לא חובה)</span></span>
+              <input type="text" name="idNumber" inputmode="numeric" maxlength="9" autocomplete="off">
+            </label>
+          </div>
+
+          <fieldset class="shifts">
+            <legend class="field__label">מתי תוכלו להתנדב?</legend>
+            <div class="shifts__opts">
+              <label class="shift skew"><input type="checkbox" name="shifts" value="13"><span>בוקר</span></label>
+              <label class="shift skew"><input type="checkbox" name="shifts" value="23"><span>צהריים</span></label>
+              <label class="shift skew"><input type="checkbox" name="shifts" value="33"><span>ערב</span></label>
+              <label class="shift skew"><input type="checkbox" name="shifts" value="any"><span>מתי שצריך</span></label>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn--red form__submit skew">
+            <img class="btn__chev" src="assets/svg/chevron.svg" alt="">
+            <img class="btn__label" src="assets/svg/btn-continue.svg" alt="המשך">
+          </button>
+        </section>
+
+        <!-- ---------- 4 · בחירת קלפי ---------- -->
+        <section class="step" data-step="clusters" hidden>
+          <p class="step__lede">בחרו קלפי, או שנשבץ אתכם היכן שנדרש</p>
+          <!-- shown only when webhook 2's age is between 18 and 36 -->
+          <label class="youth skew" data-youth hidden>
+            <input type="checkbox" name="youthPatrol">
+            <span class="youth__box" aria-hidden="true"></span>
+            <span class="youth__text">רוצה להתנדב גם בסיירת יום הבחירות של הדמוקרטים הצעירים</span>
+          </label>
+          <ul class="clusters" role="list"></ul>
+          <button type="button" class="linkbtn clusters__more" data-act="more-clusters" hidden>הצג אשכולות נוספים</button>
+          <p class="clusters__empty" hidden>לא נמצאו קלפיות קרובות — נשבץ אתכם היכן שנדרש.</p>
+          <button type="button" class="btn btn--line btn--alarm skew" data-act="anywhere">שבצו אותי היכן שצריך</button>
+        </section>
+
+        <!-- ---------- 5 · מנהל אשכול ---------- -->
+        <section class="step" data-step="manage" hidden>
+          <p class="step__title">לאשכול הזה עדיין אין מנהל/ת</p>
+          <p class="step__lede" data-echo="clusterName"></p>
+          <p class="step__body">תרצו להוביל אותו? זה אומר לתאם בין המתנדבים ולהיות אנשי הקשר של האזור.</p>
+          <div class="step__row step__row--2">
+            <button type="button" class="btn btn--line skew" data-act="manage-yes">כן, אשמח להוביל</button>
+            <button type="button" class="btn btn--line skew" data-act="manage-no">לא, רק להתנדב</button>
+          </div>
+        </section>
+
+        <!-- ---------- סיום ---------- -->
+        <section class="step step--done" data-step="done" hidden>
+          <p class="step__title">תודה רבה!</p>
+          <p class="step__lede" data-done-msg></p>
+          <div data-done-extra hidden></div>
+        </section>
+
+        <p class="flow-error" role="alert" hidden></p>
+      </form>
+
+      <img class="navy-logo" src="assets/svg/logo.svg" alt="הדמוקרטים בראשות יאיר גולן">
+      <!-- runs off the bottom of the page, as in the design; the wrapper is
+           the crop, so the note can't stretch the page -->
+      <div class="note-crop" aria-hidden="true">
+        <img class="note note--foot" src="assets/img/note.webp" alt="">
+      </div>
+
+
+      <div class="footnote">
+        <p>הדמוקרטים בראשות יאיר גולן 2026 &copy; כל הזכויות שמורות</p>
+        <p>האתר עוצב ופותח על ידי
+          <a href="https://omrifeinstein.com" target="_blank" rel="noopener">עומרי פיינשטיין</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="loading" hidden aria-hidden="true"><span class="spinner"></span></div>
+
+<script src="assets/js/mandatory-digits.js"></script>
+<script src="js/webhooks.js"></script>
+<script src="js/main.js"></script>
+<script src="js/join.js"></script>
+</body>
+</html>

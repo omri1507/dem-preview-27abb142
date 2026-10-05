@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<!-- base:start — tools/package.sh swaps this block for a literal <base> -->
+<script>
+  /* See index.html: Lovable serves this folder without trailing slashes (and
+     may drop ".html"), so pin relative paths to this page's own folder. */
+  (function () {
+    var b = document.createElement('base');
+    b.href = location.pathname.replace(/[^/]*$/, ''); document.head.appendChild(b);
+  })();
+</script>
+<!-- base:end -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the Lovable site's own favicon (root of electionday.democrats.org.il) -->
+<link rel="icon" type="image/png" href="/favicon.png">
+<title>רישום להתנדבות בקלפיות · הדמוקרטים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/join.css">
+</head>
+<body>
+
+<div class="beta" role="note">גרסת בדיקה — הטופס בבנייה, חלק מהשלבים עדיין לא סופיים</div>
+
+<main class="shell">
+  <a class="brand" href="index.html" aria-label="הדמוקרטים">
+    <img src="assets/svg/logo.svg" alt="הדמוקרטים בראשות יאיר גולן" width="220">
+  </a>
+
+  <div class="progress" hidden>
+    <span class="progress__label" aria-live="polite">שלב 1 מתוך 5</span>
+    <span class="progress__track"><span class="progress__fill" style="--p:20%"></span></span>
+  </div>
+
+  <form id="flow" novalidate>
+
+    <!-- ============ 1 · פרטים בסיסיים ============ -->
+    <section class="step" data-step="details" aria-labelledby="h-details">
+      <h1 id="h-details" tabindex="-1">רוצה להתנדב ביום הבחירות?</h1>
+      <p class="lede">כמה פרטים ונתחיל. נשלח לך קוד אימות ב־SMS.</p>
+
+      <div class="grid2">
+        <label class="field">
+          <span class="field__label">שם פרטי</span>
+          <input type="text" name="firstName" autocomplete="given-name" required>
+        </label>
+        <label class="field">
+          <span class="field__label">שם משפחה</span>
+          <input type="text" name="lastName" autocomplete="family-name" required>
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="field__label">טלפון נייד</span>
+        <input type="tel" name="phone" inputmode="numeric" autocomplete="tel"
+               placeholder="05X-XXXXXXX" required>
+        <span class="field__hint">מספר ישראלי, לשם קבלת קוד האימות</span>
+      </label>
+
+      <label class="field">
+        <span class="field__label">אימייל</span>
+        <input type="email" name="email" autocomplete="email" required>
+      </label>
+
+      <div class="field combo" data-combo="city">
+        <label class="field__label" for="city-input">עיר מגורים</label>
+        <input type="text" id="city-input" name="city" role="combobox"
+               autocomplete="off" aria-expanded="false" aria-controls="city-list"
+               aria-autocomplete="list" placeholder="התחילו להקליד…" required>
+        <ul id="city-list" class="combo__list" role="listbox" hidden></ul>
+        <span class="field__hint">מתוך רשימת היישובים</span>
+      </div>
+
+      <button type="submit" class="btn btn--go">שליחת קוד אימות</button>
+    </section>
+
+    <!-- ============ 2 · אימות OTP ============ -->
+    <section class="step" data-step="otp" aria-labelledby="h-otp" hidden>
+      <h1 id="h-otp" tabindex="-1">הזנת קוד האימות</h1>
+      <p class="lede">שלחנו קוד בן 6 ספרות ל־<b data-echo="phone"></b>.</p>
+
+      <label class="field">
+        <span class="field__label">קוד אימות</span>
+        <input type="text" name="otp" inputmode="numeric" autocomplete="one-time-code"
+               maxlength="6" pattern="\d{6}" class="otp-input" required>
+      </label>
+
+      <div class="row">
+        <button type="button" class="btn btn--ghost" data-act="resend">שליחה חוזרת</button>
+        <button type="button" class="btn btn--ghost" data-act="back-details">שינוי מספר</button>
+      </div>
+
+      <button type="submit" class="btn btn--go">אימות והמשך</button>
+    </section>
+
+    <!-- ============ 4 · השלמת פרטים ============ -->
+    <section class="step" data-step="address" aria-labelledby="h-address" hidden>
+      <h1 id="h-address" tabindex="-1">כמה פרטים נוספים</h1>
+      <p class="lede">כדי למצוא את הקלפיות הקרובות אליך.</p>
+
+      <div class="field combo" data-combo="street">
+        <label class="field__label" for="street-input">רחוב</label>
+        <input type="text" id="street-input" name="street" role="combobox"
+               autocomplete="off" aria-expanded="false" aria-controls="street-list"
+               aria-autocomplete="list" required>
+        <ul id="street-list" class="combo__list" role="listbox" hidden></ul>
+        <span class="field__hint" data-street-hint>מתוך רחובות היישוב שבחרת</span>
+      </div>
+
+      <label class="field field--narrow">
+        <span class="field__label">מספר בית</span>
+        <input type="text" name="houseNumber" inputmode="numeric" required>
+      </label>
+
+      <label class="field field--narrow">
+        <span class="field__label">ת.ז <span class="field__optional">(לא חובה)</span></span>
+        <input type="text" name="idNumber" inputmode="numeric" maxlength="9" autocomplete="off">
+      </label>
+
+      <fieldset class="field pick">
+        <legend class="field__label">מתי תוכל/י להתנדב?</legend>
+        <span class="field__hint">אפשר לבחור כמה</span>
+        <div class="pick__opts">
+          <label class="chip"><input type="checkbox" name="shifts" value="13"><span>בוקר</span></label>
+          <label class="chip"><input type="checkbox" name="shifts" value="23"><span>צהריים</span></label>
+          <label class="chip"><input type="checkbox" name="shifts" value="33"><span>ערב</span></label>
+          <label class="chip"><input type="checkbox" name="shifts" value="any"><span>מתי שצריך</span></label>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn--go">מציאת קלפיות קרובות</button>
+    </section>
+
+    <!-- ============ 5 · בחירת אשכול ============ -->
+    <section class="step" data-step="clusters" aria-labelledby="h-clusters" hidden>
+      <h1 id="h-clusters" tabindex="-1">הקלפיות הקרובות אליך</h1>
+      <p class="lede">בחר/י קלפי, או תן/י לנו לשבץ אותך היכן שנדרש.</p>
+
+      <label class="youth" data-youth hidden>
+        <input type="checkbox" name="youthPatrol">
+        <span class="youth__box" aria-hidden="true"></span>
+        <span class="youth__text">רוצה להתנדב גם בסיירת יום הבחירות של הדמוקרטים הצעירים</span>
+      </label>
+
+      <ul class="clusters" role="list"></ul>
+      <button type="button" class="btn btn--ghost clusters__more" data-act="more-clusters" hidden>הצג אשכולות נוספים</button>
+      <p class="clusters__empty" hidden>לא נמצאו קלפיות קרובות. נשבץ אותך היכן שנדרש.</p>
+
+      <button type="button" class="btn btn--outline" data-act="anywhere">
+        שבצו אותי היכן שצריך
+      </button>
+    </section>
+
+    <!-- ============ מנהל אשכול ============ -->
+    <section class="step" data-step="manage" aria-labelledby="h-manage" hidden>
+      <h1 id="h-manage" tabindex="-1">לאשכול הזה עדיין אין מנהל/ת</h1>
+      <p class="lede" data-echo="clusterName"></p>
+      <p>תרצה/י להוביל אותו? זה אומר לתאם בין המתנדבים ולהיות איש הקשר של האזור.</p>
+
+      <div class="row row--2">
+        <button type="button" class="btn btn--go" data-act="manage-yes">כן, אשמח להוביל</button>
+        <button type="button" class="btn btn--outline" data-act="manage-no">לא, רק להתנדב</button>
+      </div>
+    </section>
+
+    <!-- ============ סיום ============ -->
+    <section class="step step--done" data-step="done" aria-labelledby="h-done" hidden>
+      <div class="done-mark" aria-hidden="true">✓</div>
+      <h1 id="h-done" tabindex="-1">תודה רבה!</h1>
+      <p class="lede" data-done-msg></p>
+      <div data-done-extra hidden></div>
+      <a class="btn btn--ghost" href="index.html">חזרה לעמוד הבית</a>
+    </section>
+
+    <p class="flow-error" role="alert" hidden></p>
+  </form>
+</main>
+
+<div class="loading" hidden aria-hidden="true"><span class="spinner"></span></div>
+
+<script src="js/webhooks.js"></script>
+<script src="js/join.js"></script>
+</body>
+</html>
