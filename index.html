@@ -54,16 +54,30 @@
   <section class="band band--hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="inner">
-      <!-- Cross-fades through the five in order. Only the first is eager —
-           the rest are small enough (~350KB for all five) to arrive well
-           before their turn, which is 4s away. NOTE: alt text below carries
-           first names only; fill in the surnames. -->
+      <!-- Cross-fades through the list in the client's order (2026-10-11).
+           Only Yair has a src up front; the rest carry data-src and js/main.js
+           fetches each one a turn ahead of its slot, so a visitor downloads
+           just the portraits they actually get to see. -->
       <div class="hero-people">
-        <img class="hero-person is-on" src="assets/img/persons/yair.webp"  alt="יאיר גולן" fetchpriority="high">
-        <img class="hero-person"       src="assets/img/persons/naama.webp" alt="נעמה">
-        <img class="hero-person"       src="assets/img/persons/gilad.webp" alt="גלעד">
-        <img class="hero-person"       src="assets/img/persons/efrat.webp" alt="אפרת">
-        <img class="hero-person"       src="assets/img/persons/yaya.webp"  alt="יאיא">
+        <img class="hero-person is-on" src="assets/img/persons/yair.webp" alt="יאיר גולן" fetchpriority="high">
+        <img class="hero-person" data-src="assets/img/persons/naama-lazimi.webp" alt="נעמה לזימי">
+        <img class="hero-person" data-src="assets/img/persons/gilad-kariv.webp" alt="גלעד קריב">
+        <img class="hero-person" data-src="assets/img/persons/efrat-rayten.webp" alt="אפרת רייטן מרום">
+        <img class="hero-person" data-src="assets/img/persons/yaya-fink.webp" alt="יאיר (יאיא) פינק">
+        <img class="hero-person" data-src="assets/img/persons/gabi-lasky.webp" alt="גבריאלה (גבי) לסקי שוץ">
+        <img class="hero-person" data-src="assets/img/persons/omri-ronen.webp" alt="עמרי רונן">
+        <img class="hero-person" data-src="assets/img/persons/michal-rozin.webp" alt="מיכל רוזין">
+        <img class="hero-person" data-src="assets/img/persons/moshe-radman.webp" alt="משה רדמן">
+        <img class="hero-person" data-src="assets/img/persons/sumaya-bashir.webp" alt="סומייה בשיר">
+        <img class="hero-person" data-src="assets/img/persons/nimrod-shefer.webp" alt="נמרוד שפר">
+        <img class="hero-person" data-src="assets/img/persons/moran-zer.webp" alt="מורן זר קצנשטיין">
+        <img class="hero-person" data-src="assets/img/persons/avi-dabush.webp" alt="אבי דבוש">
+        <img class="hero-person" data-src="assets/img/persons/emilie-moatti.webp" alt="אמילי חיה מואטי">
+        <img class="hero-person" data-src="assets/img/persons/tomer-avital.webp" alt="תומר אביטל">
+        <img class="hero-person" data-src="assets/img/persons/nava-rozolio.webp" alt="נאווה חיה רוזוליו">
+        <img class="hero-person" data-src="assets/img/persons/ram-shefa.webp" alt="רם שפע">
+        <img class="hero-person" data-src="assets/img/persons/eran-etzion.webp" alt="ערן עציון">
+        <img class="hero-person" data-src="assets/img/persons/rotem-sivan.webp" alt="ד״ר רתם סיוון">
         <!-- Positioned against the portrait box so the mobile layout can keep
              them in the same relation to the face. The badge is one Figma
              export (circle, band, shadow and text), already rotated. -->

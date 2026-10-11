@@ -65,17 +65,27 @@
   }
 
   /* -------------------------------------------------- hero portrait rotator
-     Cross-fades the five portraits endlessly. Purely a CSS opacity swap — the
+     Cross-fades the portraits endlessly. Purely a CSS opacity swap — the
      images are stacked in one box, so nothing reflows as it runs. Held on the
      first frame under prefers-reduced-motion, and paused while the tab is
      hidden so it doesn't burn a timer in the background.                     */
   var people = Array.prototype.slice.call(document.querySelectorAll('.hero-person'));
+  // Portraits after the first carry data-src: give each one its src a full
+  // turn before it's due, so it's decoded by the time it fades in.
+  function loadPerson(i) {
+    var img = people[i];
+    if (img && img.dataset.src && !img.getAttribute('src')) img.src = img.dataset.src;
+  }
   if (people.length > 1 && !reduce) {
     var HOLD = 4000, personIx = 0, personTimer = null;
     function nextPerson() {
+      var next = (personIx + 1) % people.length;
+      // not arrived yet (slow connection): hold the current face a turn longer
+      if (people[next].getAttribute('src') && !people[next].complete) return;
       people[personIx].classList.remove('is-on');
-      personIx = (personIx + 1) % people.length;
+      personIx = next;
       people[personIx].classList.add('is-on');
+      loadPerson((personIx + 1) % people.length);
     }
     function startPeople() {
       if (personTimer === null) personTimer = setInterval(nextPerson, HOLD);
@@ -86,6 +96,8 @@
     document.addEventListener('visibilitychange', function () {
       document.hidden ? stopPeople() : startPeople();
     });
+    if (document.readyState === 'complete') loadPerson(1);
+    else window.addEventListener('load', function () { loadPerson(1); });
     startPeople();
   }
 
